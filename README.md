@@ -67,10 +67,10 @@ bash download_cnn14.sh
 
 **2. Prepare Dataset**
 1. Run all code in Reorder_File.ipynb # note : the file train_01046.wav is omitted.
-2. <pre>bash prepare_hdf5.sh
- # it cost about 2.5 hour in my machine
- # if you only need to training, please do not run the last 2 lines.
-</pre>
+2. <pre>bash prepare_hdf5.sh</pre>
+\# it cost about 2.5 hour in my machine<br>
+\# if you only need to training, please do not run the last 2 lines.<br>
+
 
 Note : if you want to try your own dataset, please modify following files
 * Reorder_File.ipynb
@@ -78,9 +78,8 @@ Note : if you want to try your own dataset, please modify following files
 * ./utils/config.py
 
 **3. Start Training & Evaluate**
-1. <pre>bash train.sh 
- # note : set augmentation to "none" is better in this dataset in our experiment
-</pre>
+1. <pre>bash train.sh </pre>
+\# note : set augmentation to "none" is better in this dataset in our experiment
 2. Run all code in UseFinetunedModelToPredict.ipynb # if you have modified the parameters, please correct them in the config section.
 3. Check softmax_then_mean_from_panns_transfer_to_gtzan.csv
 
