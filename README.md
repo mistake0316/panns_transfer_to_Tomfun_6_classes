@@ -17,8 +17,6 @@ The dataset can be downloaded from https://tbrain.trendmicro.com.tw/Competitions
 **0. Prepare data** 
 
 Download and upzip data, the data looks like:
-
-**0. Prepare Data**
 <pre>
 meta_train.csv
 
@@ -53,7 +51,7 @@ where meta_train.csv should in this format:
 **1. Requirements** 
 
 python 3.7.6
-> # in requirements.txt<br>
+> \# in requirements.txt<br>
 > matplotlib==3.4.2<br>
 > dotmap==1.3.23<br>
 > tensorflow==2.3.1<br>
