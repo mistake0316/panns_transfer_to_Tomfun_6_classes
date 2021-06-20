@@ -2,7 +2,12 @@ This repo is modified from https://github.com/qiuqiangkong/panns_transfer_to_gtz
 If you want view all pretrains, please go to https://github.com/qiuqiangkong/audioset_tagging_cnn<br>
 
 # Tomofun 狗音辨識 AI 百萬挑戰賽 classification finetuned on pretrained audio neural networks (PANNs)
-  Audio tagging is a task to classify audio clips into classes. Tomofun 狗音辨識 AI 百萬挑戰賽 is a competetion containing 1200 5-second audio clips with 6 classes ['Barking', 'Howling', 'Crying', 'COSmoke', 'GlassBreaking','Other']. In this codebase, we fine-tune PANNs [1] to build music classification systems.
+  Audio tagging is a task to classify audio clips into classes. Tomofun 狗音辨識 AI 百萬挑戰賽 is a competetion containing 1200 5-second audio clips with 6 classes ['Barking', 'Howling', 'Crying', 'COSmoke', 'GlassBreaking','Other']. In this codebase, we fine-tune PANNs [1] to build audio classification systems.
+
+## TODO
+- [ ] Add confusion matrix
+- [ ] Plot Curve Notebooks
+- [ ] Grad Cam
 
 ## Dataset
 The dataset can be downloaded from https://tbrain.trendmicro.com.tw/Competitions/Details/15
@@ -64,7 +69,10 @@ bash download_cnn14.sh
 
 **2. Prepare Dataset**
 1. Run all code in Reorder_File.ipynb # note : the file train_01046.wav is omitted.
-2. <pre>bash prepare_hdf5.sh # it cost about 2.5 hour in my machine</pre>
+2. <pre>bash prepare_hdf5.sh
+# it cost about 2.5 hour in my machine
+# if you only need to training, please do not run the last 2 lines.
+</pre>
 
 Note : if you want to try your own dataset, please modify following files
 * Reorder_File.ipynb
@@ -72,7 +80,8 @@ Note : if you want to try your own dataset, please modify following files
 * ./utils/config.py
 
 **3. Start Training & Evaluate**
-1. <pre>bash train.sh # note : set augmentation to "none" is better in this dataset in our experiment</pre>
+1. <pre>bash train.sh 
+# note : set augmentation to "none" is better in this dataset in our experiment</pre>
 2. Run all code in UseFinetunedModelToPredict.ipynb # if you have modified the parameters, please correct them in the config section.
 3. Check softmax_then_mean_from_panns_transfer_to_gtzan.csv
 
