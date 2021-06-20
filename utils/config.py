@@ -1,5 +1,5 @@
 sample_rate = 32000
-clip_samples = sample_rate * 30
+clip_samples = sample_rate * 5
 
 mel_bins = 64
 fmin = 50
@@ -14,9 +14,8 @@ ref = 1.0
 amin = 1e-10
 top_db = None
 
-labels = ['blues', 'classical', 'country', 'disco', 'hiphop', 'jazz', 'metal', 
-    'pop', 'reggae', 'rock']
-    
+labels = ['Barking', 'Howling', 'Crying', 'COSmoke', 'GlassBreaking','Other']
+
 lb_to_idx = {lb: idx for idx, lb in enumerate(labels)}
 idx_to_lb = {idx: lb for idx, lb in enumerate(labels)}
 classes_num = len(labels)

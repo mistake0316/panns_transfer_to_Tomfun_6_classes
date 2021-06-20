@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 
 import torch
 import torch.nn as nn
+import torch.utils.data
 import torch.nn.functional as F
 import torch.optim as optim
  
@@ -37,6 +38,7 @@ def train(args):
     batch_size = args.batch_size
     resume_iteration = args.resume_iteration
     stop_iteration = args.stop_iteration
+    suffix = args.suffix
     device = 'cuda' if (args.cuda and torch.cuda.is_available()) else 'cpu'
     filename = args.filename
     num_workers = 8
@@ -44,7 +46,7 @@ def train(args):
     loss_func = get_loss_func(loss_type)
     pretrain = True if pretrained_checkpoint_path else False
     
-    hdf5_path = os.path.join(workspace, 'features', 'waveform.h5')
+    hdf5_path = os.path.join(workspace, f'features{suffix}', 'waveform.h5')
 
     checkpoints_dir = os.path.join(workspace, 'checkpoints', filename, 
         'holdout_fold={}'.format(holdout_fold), model_type, 'pretrain={}'.format(pretrain), 
@@ -142,7 +144,7 @@ def train(args):
         # asdf
         
         # Evaluate
-        if iteration % 200 == 0 and iteration > 0:
+        if iteration % 10 == 0 and iteration > 0:
             if resume_iteration > 0 and iteration == resume_iteration:
                 pass
             else:
@@ -153,6 +155,7 @@ def train(args):
 
                 statistics = evaluator.evaluate(validate_loader)
                 logging.info('Validate accuracy: {:.3f}'.format(statistics['accuracy']))
+                logging.info('Validate loss: {:.5f}'.format(statistics['loss']))
 
                 statistics_container.append(iteration, statistics, 'validate')
                 statistics_container.dump()
@@ -167,7 +170,7 @@ def train(args):
                 train_bgn_time = time.time()
 
         # Save model 
-        if iteration % 2000 == 0 and iteration > 0:
+        if iteration % 50 == 0 and iteration > 0:
             checkpoint = {
                 'iteration': iteration, 
                 'model': model.module.state_dict()}
@@ -238,6 +241,9 @@ if __name__ == '__main__':
     parser_train.add_argument('--resume_iteration', type=int)
     parser_train.add_argument('--stop_iteration', type=int, required=True)
     parser_train.add_argument('--cuda', action='store_true', default=False)
+    
+    parser_train.add_argument('--suffix', type=str, required=True, help='suffix for feature.')
+    
 
     # Parse arguments
     args = parser.parse_args()

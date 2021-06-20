@@ -34,6 +34,8 @@ def pack_audio_files_to_hdf5(args):
     dataset_dir = args.dataset_dir
     workspace = args.workspace
     mini_data = args.mini_data
+    
+    suffix = args.suffix
 
     sample_rate = config.sample_rate
     clip_samples = config.clip_samples
@@ -44,9 +46,9 @@ def pack_audio_files_to_hdf5(args):
     audios_dir = os.path.join(dataset_dir)
 
     if mini_data:
-        packed_hdf5_path = os.path.join(workspace, 'features', 'minidata_waveform.h5')
+        packed_hdf5_path = os.path.join(workspace, f'features{suffix}', 'minidata_waveform.h5')
     else:
-        packed_hdf5_path = os.path.join(workspace, 'features', 'waveform.h5')
+        packed_hdf5_path = os.path.join(workspace, f'features{suffix}', 'waveform.h5')
     create_folder(os.path.dirname(packed_hdf5_path))
 
     (audio_names, audio_paths) = traverse_folder(audios_dir)
@@ -120,6 +122,7 @@ if __name__ == '__main__':
     parser_pack_audio.add_argument('--dataset_dir', type=str, required=True, help='Directory of dataset.')
     parser_pack_audio.add_argument('--workspace', type=str, required=True, help='Directory of your workspace.')
     parser_pack_audio.add_argument('--mini_data', action='store_true', default=False, help='Set True for debugging on a small part of data.')
+    parser_pack_audio.add_argument('--suffix', type=str, default="", help='suffix for dataset.')
     
     # Parse arguments
     args = parser.parse_args()
