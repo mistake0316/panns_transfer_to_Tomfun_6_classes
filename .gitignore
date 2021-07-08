@@ -1,7 +1,7 @@
 # User Customize
 checkpoints*
 features*
-train*
+train/*
 logs*
 public_test*
 private_test*
